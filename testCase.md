@@ -1,37 +1,30 @@
-import { test, expect } from '@playwright/test';
+# Тест-кейсы
 
-test('Проверка элементов на странице Installation', async ({ page }) => {
-  await test.step('Прекондиция: открыть главную страницу playwright.dev/', async () => {
-    await page.goto('https://playwright.dev/');
-  });
+#### Тест-кейс №1: Проверка навигации по страницам документации Playwright с использованием кнопки "Next" 
 
-  await test.step('Степ 1: Нажать на кнопку Get Started', async () => {
-    const button = page.locator('text=Get started'); 
-    await button.click(); 
-  });
+##### Прекондиция 
+  - Открытая главная страница https://playwright.dev/
 
-  await test.step('Степ 2: Проверить переход на страницу Installation', async () => {
-    await expect(page).toHaveURL('https://playwright.dev/docs/intro'); //проверка url страницы
-    await expect(page).toHaveTitle('Installation | Playwright'); //проверка title страницы
-  });
+##### Шаги
+  Шаг 1: Проверить кнопку "Get Started" на главной странице. 
+  **Ожидаемый результат:**
+  - Кнопка "Get Started" отображается на главной странице.
 
-  await test.step('Степ 3: Нажать на кнопку Next на странице Installation', async () => {
-    const buttonNext = page.locator('.pagination-nav__sublabel'); 
-    await buttonNext.click(); 
-  });
+  Шаг 2: Нажать на кнопку "Get Started" на главной странице
+  - Осуществляется переход на страницу **Installation** (`https://playwright.dev/docs/intro`)
+  - Заголовок страницы: **"Installation | Playwright"**
 
-  await test.step('Степ 4: Проверить переход на страницу Writing tests', async () => {
-    await expect(page).toHaveURL('https://playwright.dev/docs/writing-tests'); //проверка url страницы
-    await expect(page).toHaveTitle('Writing tests | Playwright'); //проверка title страницы
-  });
+  Шаг 3: Нажать на кнопку "Next" на странице Installation.
+  **Ожидаемый результат:**
+  - Осуществляется переход на страницу **Writing tests** (`https://playwright.dev/docs/writing-tests`)
+  - Заголовок страницы: **"Writing tests | Playwright"**
 
-  await test.step('Степ 5: Нажать на кнопку Next на странице Writing tests', async () => {
-    const buttonNext = page.locator('a.pagination-nav__link--next'); 
-    await buttonNext.click(); 
-  });
+  Шаг 4: Нажать на кнопку "Next" на странице Writing tests.
+  **Ожидаемый результат:**
+  - Осуществляется переход на страницу **Generating tests** (`https://playwright.dev/docs/codegen-intro`)
+  - Заголовок страницы: **"Generating tests | Playwright"**
 
-  await test.step('Степ 4: Проверить переход на страницу Generating tests', async () => {
-    await expect(page).toHaveURL('https://playwright.dev/docs/codegen-intro'); //проверка url страницы
-    await expect(page).toHaveTitle('Generating tests | Playwright'); //проверка title страницы
-  });
-});
+  Шаг 5: Нажать на кнопку "Next" на странице Generating tests.
+  **Ожидаемый результат:**
+  - Осуществляется переход на страницу **Running and debugging tests** (`https://playwright.dev/docs/running-tests`)
+  - Заголовок страницы: **"Running and debugging tests | Playwright"**

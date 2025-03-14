@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 
 test('Проверка элементов на странице Installation', async ({ page }) => {
   await test.step('Прекондиция: открыть главную страницу playwright.dev/', async () => {
-    await page.goto('https://playwright.dev/');
+    await page.goto('/');
   });
 
   await test.step('Степ 1: Нажать на кнопку Get Started', async () => {
-    const button = page.locator('text=Get started'); 
+    const button = page.locator('//a[@class = "getStarted_Sjon"]'); 
     await button.click(); 
   });
 
@@ -16,7 +16,7 @@ test('Проверка элементов на странице Installation', a
   });
 
   await test.step('Степ 3: Нажать на кнопку Next на странице Installation', async () => {
-    const buttonNext = page.locator('.pagination-nav__sublabel'); 
+    const buttonNext = page.locator('//a[@class = "pagination-nav__link pagination-nav__link--next"]'); 
     await buttonNext.click(); 
   });
 
@@ -26,7 +26,7 @@ test('Проверка элементов на странице Installation', a
   });
 
   await test.step('Степ 5: Нажать на кнопку Next на странице Writing tests', async () => {
-    const buttonNext = page.locator('a.pagination-nav__link--next'); 
+    const buttonNext = page.locator('//a[@class = "pagination-nav__link pagination-nav__link--next"]'); 
     await buttonNext.click(); 
   });
 
@@ -36,7 +36,7 @@ test('Проверка элементов на странице Installation', a
   });
 
   await test.step('Степ 7: Нажать на кнопку Next на странице Generating tests', async () => {
-    const buttonNext = page.locator('.pagination-nav__link--next'); 
+    const buttonNext = page.locator('//a[@class = "pagination-nav__link pagination-nav__link--next"]'); 
     await buttonNext.click(); 
   });
 

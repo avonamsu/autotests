@@ -1,32 +1,40 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { PageDocumentation} from '../src/pages/PageDocumentation';
 
-test('Проверка элементов на странице Installation', async ({ page }) => {
-    await test.step('Прекондиция: открыть главную страницу playwright.dev/', async () => {
-        await page.goto('/docs/intro');
+test('Общие компоненты::Табы', async ({ page }) => {
+    const pageDocumentation = await test.step('Прекондиция: открыть главную страницу playwright.dev/', async () => {
+        const pageDocumentation = new PageDocumentation(page);
+
+        await pageDocumentation.open('/docs/intro');
+
+        return pageDocumentation;
     });
 
-    const { tabsContainer, tabActive, tabContent } = await test.step('Степ 1: Проверить дефолтное состояние элементов', async () => {
-        const tabsContainer = page.locator('//h2[text()="Installing Playwright"]/following-sibling::div[contains(@class, "tabList")][1]');
-        const tabActive = tabsContainer.locator('//li[contains(@class, "tabs__item--active")]');
-        const tabContent = tabsContainer.locator('//div[@role="tabpanel" and not(@hidden)]');
+    const tabsContainer= await test.step('Степ 1: Проверить дефолтное состояние элементов', async () => {
+        const tabsContainer = pageDocumentation.Tabs;
+        const expectedContent = 'npm init playwright@latest';
 
-        await expect(tabActive, 'Активный таб "npm"').toHaveText('npm');
-        await expect(tabContent, 'В контенте отображается команда "npm init playwright@latest"').toHaveText('npm init playwright@latest');
+        expect(await tabsContainer.getTabActiveText(), 'Активный таб "npm"').toBe('npm');
+        expect(await tabsContainer.getContent(), 'В контенте отображается команда "npm init playwright@latest"').toBe(expectedContent);
 
-        return { tabsContainer, tabActive, tabContent };
+        return tabsContainer;
     });
 
     await test.step('Степ 2: Кликнуть на таб yarn', async () => {
-        await tabsContainer.locator('//li[text()="yarn"]').click();
+        await tabsContainer.clickTab('yarn');
 
-        await expect(tabActive, 'Активный таб "yarn"').toHaveText('yarn');
-        await expect(tabContent, 'В контенте отображается команда "yarn create playwright"').toHaveText('yarn create playwright');
+        const expectedContent = 'yarn create playwright';
+
+        expect(await tabsContainer.getTabActiveText(), 'Активный таб "yarn"').toBe('yarn');
+        expect(await tabsContainer.getContent(), 'В контенте отображается команда "yarn create playwright"').toBe(expectedContent);
     });
 
     await test.step('Степ 3: Кликнуть на таб pnpm', async () => {
-        await tabsContainer.locator('//li[text()="pnpm"]').click();
+        await tabsContainer.clickTab('pnpm');
 
-        await expect(tabActive, 'Активный таб "pnpm"').toHaveText('pnpm');
-        await expect(tabContent, 'В контенте отображается команда "pnpm create playwright"').toHaveText('pnpm create playwright');
+        const expectedContent = 'pnpm create playwright';
+
+        expect(await tabsContainer.getTabActiveText(), 'Активный таб "pnpm"').toBe('pnpm');
+        expect(await tabsContainer.getContent(), 'В контенте отображается команда "pnpm create playwright"').toBe(expectedContent);
     });
 });
